@@ -25,14 +25,14 @@ void matrixPrint(int *arr, int n, int m)
     int i, j;
     for (i = 0; i < n; i++)
     {
-        std::cout << endl;
+        cout << endl;
         for (j = 0; j < m; j++)
         {
-            printf("%d ", *((arr + j * n) + i));
+            printf("%d\t", *((arr + j * n) + i));
         }
     }
-    std::cout << endl;
-}
+    cout << endl;
+};
 
 void mapPrint(unordered_map<pair<int, int>, int, hash_pair> m)
 {
@@ -41,37 +41,42 @@ void mapPrint(unordered_map<pair<int, int>, int, hash_pair> m)
         cout << "[" << (p.first).first << ", "
              << (p.first).second << "] ==> "
              << p.second << "\n";
-}
+};
 
-void matrixFromMapPrint(unordered_map<pair<int, int>, int, hash_pair> map, int n, int m) {
+void mapPrintSecond(map<int, pair<int, int>> m)
+{
+    cout << "Contents of the map : \n";
+    for (auto p : m)
+        cout << p.first << " ==> "
+             << "[" << (p.second).first << ", "
+             << (p.second).second << "]"
+             << "\n";
+};
 
+void matrixFromMapPrint(unordered_map<pair<int, int>, int, hash_pair> map, const int n, const int m)
+{
 
-    const int cn = n;
-    const int cm = m;
-
-    int matrix[cn][cm];
+    int matrix[n][m];
 
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
         {
-            
             pair<int, int> p(i, j);
             matrix[i][j] = map[p];
         }
     }
 
-matrixPrint(&matrix[0][0], n, m);
-
-}
+    matrixPrint(&matrix[0][0], n, m);
+};
 
 int main()
 {
 
     // number of rows
-    const int n = 10;
+    const int n = 150;
     // number of columns
-    const int m = 10;
+    const int m = 150;
     // area of matrix
     const int area = n * m;
 
@@ -90,50 +95,55 @@ int main()
         }
     }
 
-    matrixPrint(&matrix[0][0], n, m);
-
-    mapPrint(pointMap);
-
     int step = 1;
 
     map<int, pair<int, int>> previousPoints;
     map<int, pair<int, int>> currentPoints;
 
-    pair<int, int> up((playerLocation.first + 1), playerLocation.second);
-    pair<int, int> down((playerLocation.first - 1), playerLocation.second);
-    pair<int, int> left(playerLocation.first, (playerLocation.second - 1));
-    pair<int, int> right(playerLocation.first, (playerLocation.second + 1));
+    previousPoints[1] = playerLocation;
+    pointMap[playerLocation] = -2;
+    pair<int, int> block1(5, 7);
+    pair<int, int> block2(5, 6);
+    pair<int, int> block3(5, 5);
+    pair<int, int> block4(6, 5);
+    pointMap[block1] = -1;
+    pointMap[block2] = -1;
+    pointMap[block3] = -1;
+    pointMap[block4] = -1;
+    int compCounter = 0;
 
-    previousPoints[1] = up;
-    previousPoints[2] = down;
-    previousPoints[3] = left;
-    previousPoints[4] = right;
 
-    //while (!previousPoints.empty())
-    //{
+    while (!previousPoints.empty())
+    {
         int currentPointIndex = 0;
         for (auto p : previousPoints)
         {
+            compCounter++;
             pair<int, int> up((p.second.first + 1), p.second.second);
             pair<int, int> down((p.second.first - 1), p.second.second);
             pair<int, int> left(p.second.first, (p.second.second - 1));
             pair<int, int> right(p.second.first, (p.second.second + 1));
-            if (pointMap[up] == 0) {
+            if (pointMap.count(up) > 0 && pointMap[up] == 0)
+            {
                 pointMap[up] = step;
                 currentPoints[currentPointIndex] = up;
                 currentPointIndex++;
             }
-            if (pointMap[down] == 0) {
+            if (pointMap.count(down) > 0 && pointMap[down] == 0)
+            {
+
                 pointMap[down] = step;
                 currentPoints[currentPointIndex] = down;
                 currentPointIndex++;
             }
-            if (pointMap[left] == 0) {
+            if (pointMap.count(left) > 0 && pointMap[left] == 0)
+            {
                 pointMap[left] = step;
                 currentPoints[currentPointIndex] = left;
                 currentPointIndex++;
             }
-            if (pointMap[right] == 0) {
+            if (pointMap.count(right) > 0 && pointMap[right] == 0)
+            {
                 pointMap[right] = step;
                 currentPoints[currentPointIndex] = right;
                 currentPointIndex++;
@@ -141,11 +151,11 @@ int main()
         }
 
         previousPoints = currentPoints;
+        currentPoints.clear();
         step++;
-
-    //}
-
-    mapPrint(pointMap);
+    }
+    cout << "Number of Comparisions: " << compCounter;
+    matrixFromMapPrint(pointMap, n, m);
 
     return 0;
-}
+};
