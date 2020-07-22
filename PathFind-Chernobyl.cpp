@@ -6,6 +6,7 @@
 #include <map>
 #include <unordered_map>
 #include <utility>
+#include <chrono>
 
 using namespace std;
 
@@ -74,9 +75,9 @@ int main()
 {
 
     // number of rows
-    const int n = 150;
+    const int n = 20;
     // number of columns
-    const int m = 150;
+    const int m = 20;
     // area of matrix
     const int area = n * m;
 
@@ -99,35 +100,45 @@ int main()
 
     map<int, pair<int, int>> previousPoints;
     map<int, pair<int, int>> currentPoints;
-
     previousPoints[1] = playerLocation;
     pointMap[playerLocation] = -2;
-    pair<int, int> block1(5, 7);
-    pair<int, int> block2(5, 6);
-    pair<int, int> block3(5, 5);
-    pair<int, int> block4(6, 5);
-    pointMap[block1] = -1;
-    pointMap[block2] = -1;
-    pointMap[block3] = -1;
-    pointMap[block4] = -1;
+
+    // obstacle input
+    // pair<int, int> block1(5, 7);
+    // pair<int, int> block2(5, 6);
+    // pair<int, int> block3(5, 5);
+    // pair<int, int> block4(6, 5);
+    // pair<int, int> block5(7, 5);
+    // pair<int, int> block6(7, 6);
+    // pointMap[block1] = -1;
+    // pointMap[block2] = -1;
+    // pointMap[block3] = -1;
+    // pointMap[block4] = -1;
+    // pointMap[block5] = -1;
+    // pointMap[block6] = -1;
+
+    // analysis variables
     int compCounter = 0;
 
-
+    chrono::high_resolution_clock::time_point t1 = chrono::high_resolution_clock::now();
     while (!previousPoints.empty())
     {
         int currentPointIndex = 0;
         for (auto p : previousPoints)
         {
-            compCounter++;
-            pair<int, int> up((p.second.first + 1), p.second.second);
-            pair<int, int> down((p.second.first - 1), p.second.second);
-            pair<int, int> left(p.second.first, (p.second.second - 1));
-            pair<int, int> right(p.second.first, (p.second.second + 1));
+            int p_first = p.second.first;
+            int p_second = p.second.second;
+
+            pair<int, int> up((p_first + 1), p_second);
+            pair<int, int> down((p_first - 1), p_second);
+            pair<int, int> left(p_first, (p_second - 1));
+            pair<int, int> right(p_first, (p_second + 1));
             if (pointMap.count(up) > 0 && pointMap[up] == 0)
             {
                 pointMap[up] = step;
                 currentPoints[currentPointIndex] = up;
                 currentPointIndex++;
+                compCounter++;
             }
             if (pointMap.count(down) > 0 && pointMap[down] == 0)
             {
@@ -135,25 +146,35 @@ int main()
                 pointMap[down] = step;
                 currentPoints[currentPointIndex] = down;
                 currentPointIndex++;
+                compCounter++;
             }
             if (pointMap.count(left) > 0 && pointMap[left] == 0)
             {
                 pointMap[left] = step;
                 currentPoints[currentPointIndex] = left;
                 currentPointIndex++;
+                compCounter++;
             }
             if (pointMap.count(right) > 0 && pointMap[right] == 0)
             {
                 pointMap[right] = step;
                 currentPoints[currentPointIndex] = right;
                 currentPointIndex++;
+                compCounter++;
             }
         }
-
         previousPoints = currentPoints;
         currentPoints.clear();
         step++;
     }
+
+    chrono::high_resolution_clock::time_point t2 = chrono::high_resolution_clock::now();
+
+    chrono::duration<double, std::milli> time_span = t2 - t1;
+
+    std::cout << "Duration:  " << time_span.count() << " milliseconds.";
+    std::cout << std::endl;
+
     cout << "Number of Comparisions: " << compCounter;
     matrixFromMapPrint(pointMap, n, m);
 
