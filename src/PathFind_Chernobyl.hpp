@@ -1,12 +1,6 @@
-
-#include <iostream>
-
-#include <stdio.h>
-#include <conio.h>
 #include <map>
 #include <unordered_map>
-#include <utility>
-#include <chrono>
+
 
 struct hash_pair
 {

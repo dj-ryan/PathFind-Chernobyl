@@ -26,9 +26,9 @@ int main()
 {
 
     // number of rows
-    const int n = 20;
+    const int n = 10;
     // number of columns
-    const int m = 20;
+    const int m = 10;
     // area of matrix
     const int area = n * m;
 
