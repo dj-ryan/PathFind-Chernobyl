@@ -75,9 +75,9 @@ int main()
 {
 
     // number of rows
-    const int n = 20;
+    const int n = 210;
     // number of columns
-    const int m = 20;
+    const int m = 210;
     // area of matrix
     const int area = n * m;
 
@@ -172,11 +172,13 @@ int main()
 
     chrono::duration<double, std::milli> time_span = t2 - t1;
 
+
+    matrixFromMapPrint(pointMap, n, m);
+
     std::cout << "Duration:  " << time_span.count() << " milliseconds.";
     std::cout << std::endl;
 
     cout << "Number of Comparisions: " << compCounter;
-    matrixFromMapPrint(pointMap, n, m);
 
     return 0;
 };
