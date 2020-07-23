@@ -100,7 +100,7 @@ int main()
 
     map<int, pair<int, int>> previousPoints;
     map<int, pair<int, int>> currentPoints;
-    previousPoints[1] = playerLocation;
+    previousPoints[0] = playerLocation;
     pointMap[playerLocation] = -2;
 
     // obstacle input
