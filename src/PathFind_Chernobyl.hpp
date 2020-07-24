@@ -1,7 +1,3 @@
-#include <map>
-#include <unordered_map>
-
-
 struct hash_pair
 {
     template <class T1, class T2>
@@ -13,10 +9,14 @@ struct hash_pair
     }
 };
 
-void matrixPrint(int *arr, int n, int m);
+void printMatrix(int *arr, int n, int m);
 
-void mapPrint(std::unordered_map<std::pair<int, int>, int, hash_pair> m);
+void printPairValueMap(std::unordered_map<std::pair<int, int>, int, hash_pair> m);
 
-void mapPrintSecond(std::map<int, std::pair<int, int>> m);
+void printValuePairMap(std::map<int, std::pair<int, int>> m);
 
-void matrixFromMapPrint(std::unordered_map<std::pair<int, int>, int, hash_pair> map, const int n, const int m);
+void printMatrixFromMap(std::unordered_map<std::pair<int, int>, int, hash_pair> map, const int n, const int m);
+
+std::unordered_map<std::pair<int, int>, int, hash_pair> calcPlaceBlock(std::unordered_map<std::pair<int, int>, int, hash_pair> pointMap, std::pair<int, int> blockArray[]);
+
+std::unordered_map<std::pair<int, int>, int, hash_pair> calcHeatMap(std::unordered_map<std::pair<int, int>, int, hash_pair> pointMap, std::pair<int, int> origin);
