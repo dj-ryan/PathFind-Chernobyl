@@ -1,3 +1,6 @@
+#include <unordered_map>
+#include <map>
+
 struct hash_pair
 {
     template <class T1, class T2>
@@ -11,9 +14,9 @@ struct hash_pair
 
 void printMatrix(int *arr, int n, int m);
 
-void printPairValueMap(std::unordered_map<std::pair<int, int>, int, hash_pair> m);
+void printMap(std::unordered_map<std::pair<int, int>, int, hash_pair> m);
 
-void printValuePairMap(std::map<int, std::pair<int, int>> m);
+void printMap(std::map<int, std::pair<int, int>> m);
 
 void printMatrixFromMap(std::unordered_map<std::pair<int, int>, int, hash_pair> map, const int n, const int m);
 

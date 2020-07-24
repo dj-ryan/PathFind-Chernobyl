@@ -10,7 +10,6 @@
  */
 
 #include <iostream>
-
 #include <stdio.h>
 #include <map>
 #include <unordered_map>
@@ -27,8 +26,6 @@ int main()
     const int n = 10;
     // number of columns
     const int m = 10;
-    // area of matrix
-    const int area = n * m;
 
     pair<int, int> playerLocation(4, 3);
 

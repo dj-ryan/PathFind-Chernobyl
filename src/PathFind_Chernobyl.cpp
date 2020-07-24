@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include <stdio.h>
 #include <map>
 #include <unordered_map>
@@ -20,7 +19,7 @@ void printMatrix(int *arr, int n, int m)
     std::cout << std::endl;
 };
 
-void printPairValueMap(std::unordered_map<std::pair<int, int>, int, hash_pair> m)
+void printMap(std::unordered_map<std::pair<int, int>, int, hash_pair> m)
 {
     std::cout << "Contents of the unordered_map : \n";
     for (auto p : m)
@@ -29,7 +28,7 @@ void printPairValueMap(std::unordered_map<std::pair<int, int>, int, hash_pair> m
                   << p.second << "\n";
 };
 
-void printValuePairMap(std::map<int, std::pair<int, int>> m)
+void printMap(std::map<int, std::pair<int, int>> m)
 {
     std::cout << "Contents of the map : \n";
     for (auto p : m)
